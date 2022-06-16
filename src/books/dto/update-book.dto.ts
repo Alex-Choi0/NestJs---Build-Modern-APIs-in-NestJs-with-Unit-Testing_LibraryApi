@@ -1,35 +1,35 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmpty, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmpty, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class CreateBookDto {
+export class UpdateBookDto {
 
   @IsEmpty({message : 'You cannot provide the id'})
   id : string
 
   @ApiProperty({
-    required: true,
+    required: false,
     description: '도서 이름',
     example: '코딩 잘하는법',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   name: string;
 
   @ApiProperty({
-    required: true,
+    required: false,
     description: '가격 won',
     example: 100000,
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   price: number;
 
   @ApiProperty({
-    required: true,
+    required: false,
     description: '저자',
     example: '알렉스',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   author: string;
 }
