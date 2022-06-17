@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmpty, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmpty, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { User } from 'src/users/user.entity';
 
 export class CreateBookDto {
-
-  @IsEmpty({message : 'You cannot provide the id'})
-  id : string
+  @IsEmpty({ message: 'You cannot provide the id' })
+  id: string;
 
   @ApiProperty({
     required: true,
@@ -21,7 +21,7 @@ export class CreateBookDto {
     example: 100000,
   })
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   price: number;
 
   @ApiProperty({
@@ -32,4 +32,7 @@ export class CreateBookDto {
   @IsNotEmpty()
   @IsString()
   author: string;
+
+  @IsEmpty()
+  userId: User;
 }

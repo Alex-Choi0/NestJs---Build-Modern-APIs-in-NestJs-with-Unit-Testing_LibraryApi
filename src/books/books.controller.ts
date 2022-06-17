@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Book } from './book.entity';
 import { BooksService } from './books.service';
@@ -15,8 +23,8 @@ export class BooksController {
     summary: 'get all books',
     description: '책을 모두 조회한다',
   })
-  async getAllBooks(){
-    return this.bookService.findAll()
+  async getAllBooks() {
+    return this.bookService.findAll();
   }
 
   @Post()
@@ -25,7 +33,13 @@ export class BooksController {
     description: '책을 생성한다',
   })
   createBook(@Body() body: CreateBookDto) {
-    return this.bookService.create(body);
+    const user = {
+      id: '27775ecd-793f-475e-aedc-8adde09d79c4',
+      email: 'test@gmail.com',
+      password: '12345678',
+    };
+
+    return this.bookService.create(body, user);
   }
 
   @Get(':id')
@@ -33,8 +47,8 @@ export class BooksController {
     summary: 'get book by id',
     description: 'id를 이용하여 책을 조회한다.',
   })
-  async findById(@Param('id') id: string) : Promise<Book>{
-    return await this.bookService.findOne(id)
+  async findById(@Param('id') id: string): Promise<Book> {
+    return await this.bookService.findOne(id);
   }
 
   @Put(':id')
@@ -42,8 +56,11 @@ export class BooksController {
     summary: 'Update book',
     description: 'id를 이용하여 책을 업데이트 한다.',
   })
-  async updateBook(@Param('id') id: string, @Body() body : UpdateBookDto) : Promise<Book>{
-    return await this.bookService.update(id, body)
+  async updateBook(
+    @Param('id') id: string,
+    @Body() body: UpdateBookDto,
+  ): Promise<Book> {
+    return await this.bookService.update(id, body);
   }
 
   @Delete(':id')
@@ -51,8 +68,7 @@ export class BooksController {
     summary: 'Delete book',
     description: 'id를 이용하여 책을 삭제 한다.',
   })
-  async deleteBook(@Param('id') id: string) : Promise<Book>{
-    return await this.bookService.remove(id)
+  async deleteBook(@Param('id') id: string): Promise<Book> {
+    return await this.bookService.remove(id);
   }
-
 }

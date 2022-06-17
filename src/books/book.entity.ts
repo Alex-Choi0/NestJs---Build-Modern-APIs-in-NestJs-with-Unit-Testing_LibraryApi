@@ -1,9 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/user.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Book {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
+  userId: string;
 
   @Column()
   name: string;
@@ -13,4 +17,7 @@ export class Book {
 
   @Column()
   author: string;
+
+  @ManyToOne(() => User, (user) => user.books)
+  user: User;
 }
